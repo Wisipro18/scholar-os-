@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="flex items-center justify-center h-[80vh]">
+
+    <div class="text-center bg-[#1e293b] text-gray-100 p-10 rounded-2xl shadow-lg w-[400px]" data-aos="zoom-in">
+
+        <!-- TITLE -->
+        <h1 class="text-3xl font-bold mb-6">⏳ Pomodoro Timer</h1>
+
+        <!-- TIMER DISPLAY -->
+        <div id="timer" class="text-6xl font-bold mb-6 text-white">
+    25:00
+</div>
+
+        <!-- BUTTONS -->
+        <div class="flex justify-center gap-3">
+
+            <button onclick="startTimer()"
+                    class="bg-green-500 hover:bg-green-600 text-white px-5 py-2 rounded-lg transition">
+                Start
+            </button>
+
+            <button onclick="stopTimer()"
+                    class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg transition">
+                Stop
+            </button>
+
+            <button onclick="resetTimer()"
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-2 rounded-lg transition">
+                Reset
+            </button>
+
+        </div>
+
+        <!-- STATUS -->
+        <p id="status" class="mt-6 text-sm text-gray-500">
+            Ready to focus 🚀
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+let time = 1500;
+let interval;
+
+function updateDisplay() {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    document.getElementById("timer").innerText =
+        `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function startTimer() {
+    if (interval) return;
+
+    document.getElementById("status").innerText = "Focus mode active 🔥";
+
+    interval = setInterval(() => {
+        if (time > 0) {
+            time--;
+            updateDisplay();
+        } else {
+            stopTimer();
+            document.getElementById("status").innerText = "Session complete 🎉";
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(interval);
+    interval = null;
+    document.getElementById("status").innerText = "Paused ⏸";
+}
+
+function resetTimer() {
+    stopTimer();
+    time = 1500;
+    updateDisplay();
+    document.getElementById("status").innerText = "Ready to focus 🚀";
+}
+</script>
+
+{% endblock %}

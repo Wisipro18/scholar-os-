@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScholarOS</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0f172a] text-gray-100">
+
+<!-- APP WRAPPER -->
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 fixed left-0 top-0 h-full bg-[#111827] border-r border-gray-800 px-6 py-8">
+
+        <h1 class="text-xl font-bold mb-10 text-white">
+            📚 ScholarOS
+        </h1>
+
+        <nav class="space-y-2 text-sm text-gray-300">
+
+            <a href="/" class="block px-3 py-2 rounded hover:bg-gray-800">🏠 Dashboard</a>
+            <a href="/cgpa/" class="block px-3 py-2 rounded hover:bg-gray-800">📊 CGPA</a>
+            <a href="/calendar/" class="block px-3 py-2 rounded hover:bg-gray-800">📅 Calendar</a>
+            <a href="/pomodoro/" class="block px-3 py-2 rounded hover:bg-gray-800">⏱ Pomodoro</a>
+
+            <a href="/logout/" class="block px-3 py-2 rounded text-red-400 hover:bg-red-900 mt-4">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="ml-64 flex-1 p-10">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+<!-- AOS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 700,
+        once: true
+    });
+</script>
+
+</body>
+</html>

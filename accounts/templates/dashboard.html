@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-3xl font-bold mb-6" data-aos="fade-down">
+    📊 Dashboard
+</h1>
+
+<!-- STATS -->
+<div class="grid grid-cols-3 gap-6">
+
+    <div class="bg-[#1e293b] text-gray-100 p-5 rounded-xl shadow" data-aos="zoom-in">
+        <h2 class="text-gray-500">🔥 Study Streak</h2>
+        <p class="text-3xl font-bold">{{ streak }}</p>
+    </div>
+
+    <div class="bg-[#1e293b] text-gray-100 p-5 rounded-xl shadow" data-aos="zoom-in" data-aos-delay="100">
+        <h2 class="text-gray-500">📌 Tasks</h2>
+        <p class="text-3xl font-bold">{{ tasks.count }}</p>
+    </div>
+
+    <div class="bg-[#1e293b] text-gray-100 p-5 rounded-xl shadow" data-aos="zoom-in" data-aos-delay="200">
+        <h2 class="text-gray-500">🧠 Insights</h2>
+        <p class="text-sm text-gray-600">{{ insights }}</p>
+    </div>
+
+</div>
+
+<!-- TASKS -->
+<div class="mt-10 bg-[#1e293b] text-gray-100 p-5 rounded-xl shadow" data-aos="fade-up">
+    <h2 class="text-xl font-bold mb-4">Your Tasks</h2>
+
+    {% for task in tasks %}
+        <div class="border-b py-2">
+            {{ task.title }}
+        </div>
+    {% empty %}
+        <p class="text-gray-500">No tasks yet</p>
+    {% endfor %}
+</div>
+
+<!-- 📊 ANALYTICS -->
+<div class="mt-10 bg-[#1e293b] text-gray-100 p-6 rounded-xl shadow" data-aos="fade-up">
+    <h2 class="text-xl font-bold mb-4">📈 Study Analytics</h2>
+
+    {{ study_data|json_script:"study-data" }}
+
+    <canvas id="studyChart"></canvas>
+</div>
+
+<script>
+const rawData = JSON.parse(document.getElementById('study-data').textContent);
+
+new Chart(document.getElementById('studyChart'), {
+    type: 'line',
+    data: {
+        labels: rawData.labels,
+        datasets: [{
+            label: 'Study Hours',
+            data: rawData.hours,
+            borderWidth: 2,
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59,130,246,0.1)',
+            fill: true,
+            tension: 0.4
+        }]
+    }
+});
+</script>
+
+{% endblock %}

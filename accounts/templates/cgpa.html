@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="min-h-screen bg-[#0f172a] text-white p-6">
+
+    <h2 class="text-2xl font-bold mb-6">🎓 CGPA Calculator</h2>
+
+    <form method="POST" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- COURSES CONTAINER -->
+        <div id="courses">
+
+            <div class="grid grid-cols-3 gap-3 mb-3">
+
+                <input name="course"
+                       placeholder="Course"
+                       class="w-full p-2 rounded bg-[#1e293b] border border-gray-600 text-white placeholder-gray-400">
+
+                <select name="grade"
+                        class="w-full p-2 rounded bg-[#1e293b] border border-gray-600 text-white">
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                    <option>E</option>
+                    <option>F</option>
+                </select>
+
+                <input name="units"
+                       type="number"
+                       placeholder="Units"
+                       class="w-full p-2 rounded bg-[#1e293b] border border-gray-600 text-white placeholder-gray-400">
+
+            </div>
+
+        </div>
+
+        <!-- ADD BUTTON -->
+        <button type="button"
+                onclick="addCourse()"
+                class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded transition">
+            + Add Course
+        </button>
+
+        <!-- SUBMIT -->
+        <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded transition">
+            Calculate CGPA
+        </button>
+
+    </form>
+
+    <!-- RESULT -->
+    {% if cgpa %}
+        <div class="mt-8 text-center text-3xl font-bold text-green-400">
+            Your CGPA: {{ cgpa }}
+        </div>
+    {% endif %}
+
+</div>
+
+<script>
+function addCourse() {
+    const container = document.getElementById("courses");
+
+    const div = document.createElement("div");
+
+    div.className = "grid grid-cols-3 gap-3 mb-3";
+
+    div.innerHTML = `
+        <input name="course"
+               placeholder="Course"
+               class="w-full p-2 rounded bg-[#1e293b] border border-gray-600 text-white placeholder-gray-400">
+
+        <select name="grade"
+                class="w-full p-2 rounded bg-[#1e293b] border border-gray-600 text-white">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+            <option>E</option>
+            <option>F</option>
+        </select>
+
+        <input name="units"
+               type="number"
+               placeholder="Units"
+               class="w-full p-2 rounded bg-[#1e293b] border border-gray-600 text-white placeholder-gray-400">
+    `;
+
+    container.appendChild(div);
+}
+</script>
+
+{% endblock %}
