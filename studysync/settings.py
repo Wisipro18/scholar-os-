@@ -6,6 +6,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'dev-key'
 DEBUG = True
 
+ALLOWED_HOSTS = [
+    "scholar-os.onrender.com",
+    ".onrender.com",
+    "127.0.0.1",
+    "localhost"
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
